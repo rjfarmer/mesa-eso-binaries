@@ -208,7 +208,7 @@
       <a href="#part1b" class="list-group-item list-group-item-action"data-name="inlist1 and inlist2" data-description="Inlists that set the normal physical parameters for <code>MESA star</code> models that will correspond with the two stars in the binaries. These can point to other inlists (like <code>inlist_donor</code> and <code>inlist_pgstar_binary</code> in our example). The names of these files are controlled by the <code>inlist_names</code> array in the <code>binary_job</code> namelist.">inlist1 and inlist2</a>
       <a href="#part1b" class="list-group-item list-group-item-action" data-name="mk" data-description="Same as in <code>star</code>: Executable script that recompiles the local copy of <code>star</code>. You only need to execute this if you make changes to files in the <code>src</code> directory or upgrade <samp>MESA</samp>.">mk</a>
       <a href="#part1b" class="list-group-item list-group-item-action" data-name="rn" data-description="Same as in <code>star</code>: Executable that, after compilation with <code>mk</code> starts the simulation defined by <code>inlist</code> and any custom code in <code>src/run_star_extras.f90</code>.">rn</a>
-      <a href="#part1b" class="list-group-item list-group-item-action" data-name="re" data-description="Executable that restarts an interrupted or completed run from a pair of earlier photos. It takes one argument, which is a photo file found in all three of <code>photos</code>, <code>photos1</code> and <code<photos2</code>, which contain data for the binary as a whole, star 1, and star 2, respectively.">re</a>
+      <a href="#part1b" class="list-group-item list-group-item-action" data-name="re" data-description="Executable that restarts an interrupted or completed run from a pair of earlier photos. It takes one argument, which is a photo file found in all three of <code>photos</code>, <code>photos1</code> and <code>photos2</code>, which contain data for the binary as a whole, star 1, and star 2, respectively.">re</a>
       
     </div>
   </div>
@@ -1224,13 +1224,13 @@
 </p>
 <ul class="lead">
   <li>
-    Make a copy of your latest run directory (with the custom wind routine) and prepare it for modeling a different stripped star. Claim a combination of stellar masses (<var>M</var><sub>1</sub>, <var>M</var><sub>2</sub>) and initial orbital period in the <a href="https://docs.google.com/spreadsheets/d/1DE4l_LVfDqseTllQ-yTUvXau-JBOfwvkkcNtNkHHJek/edit?usp=sharing" target=_blank>google sheet</a> (tab "Ylva - Minilab 2") by entering your name or some other identifier in the top table. Don't forget to find the new ZAMS model and load it in your inlist.
+    Make a copy of your latest run directory (with the custom wind routine) and prepare it for modeling a different stripped star. Claim a combination of stellar masses (<var>M</var><sub>1</sub>, <var>M</var><sub>2</sub>) and initial orbital period in the <a href="https://docs.google.com/spreadsheets/d/1kUwn05vsCrr9QLd9eSSNmVuHSVtckhYYemq69T0AlwQ/edit?usp=sharing" target=_blank>google sheet</a> (tab "Minilab 2") by entering your name or some other identifier in the top table. Don't forget to find the new ZAMS model and load it in your inlist.
   </li>
   <li>
     The stopping condition for central carbon depletion will no longer work because of the initial composition of the star. You can remove it or stop at helium depletion and restart as previously. In either case, manually stop the run once it is in the second phase of mass transfer.
   </li>
   <li>
-    Run your model and report the absolute <var>V</var>-band magnitude of the donor star, the final total hydrogen mass in the model, and your supernova type prediction once it enters its second phase of mass transfer in the lower tables of the <a href="https://docs.google.com/spreadsheets/d/1DE4l_LVfDqseTllQ-yTUvXau-JBOfwvkkcNtNkHHJek/edit?usp=sharing" target=_blank>google sheet</a>.
+    Run your model and report the absolute <var>V</var>-band magnitude of the donor star, the final total hydrogen mass in the model, and your supernova type prediction once it enters its second phase of mass transfer in the lower tables of the <a href="https://docs.google.com/spreadsheets/d/1kUwn05vsCrr9QLd9eSSNmVuHSVtckhYYemq69T0AlwQ/edit?usp=sharing" target=_blank>google sheet</a>.
   </li>
 </ul>
 
