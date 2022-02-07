@@ -332,7 +332,7 @@
       Select the starting model in the <code>star_job</code> namelist in <code>inlist_donor</code>. Note that you must first copy <code>zams_14Msun.mod</code> to the <code>minilab1</code> directory from the <code>ZAMS_models</code> directory (or you could give a path like <code>../ZAMS_models/zams_14Msun.mod</code>)
 <figure class="highlight"><pre><code class="language-fortran" data-lang="fortran"><span class="w">  </span><span class="c1">! Load ZAMS model</span><span class="w">
     </span><span class="n">load_saved_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
-    </span><span class="n">saved_model_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'zams_14Msun.mod'</span></code></pre></figure>
+    </span><span class="n">load_model_filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'zams_14Msun.mod'</span></code></pre></figure>
     </p>
     <p class='card-text'>
       Finally, we must account for the reduced metallicity in the stellar model in <code>inlist1</code>:
@@ -741,13 +741,7 @@
          </span><span class="k">contains</span><span class="w">
 
          </span><span class="c1">! below is just the contents of Q0_function.txt</span><span class="w">
-         </span><span class="k">subroutine</span><span class="w"> </span><span class="n">calculate_Q0</span><span class="p">(</span><span class="n">log10_Q0</span><span class="p">)</span><span class="w">
-            </span><span class="c1">! contents omitted for brevity</span><span class="w">
-         </span><span class="k">end</span><span class="w"> </span><span class="k">subroutine</span><span class="w"> </span><span class="n">calculate_Q0</span><span class="w">
-
-         </span><span class="k">pure</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">integrate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w">
-            </span><span class="c1">! contents omitted for brevity</span><span class="w">
-         </span><span class="k">end</span><span class="w"> </span><span class="k">function</span><span class="w">
+        </span><span class="k"> include '../Q0_function.txt'</span><span class="w"></span>
 
       </span><span class="k">end</span><span class="w"> </span><span class="k">subroutine</span><span class="w"> </span><span class="n">data_for_extra_history_columns</span><span class="w">
       </span></code></pre></figure>
@@ -1201,16 +1195,13 @@
     </p>
 
     <p>
-      At the end of the evolution, though, we do have a <var>V</var>-band magnitude of approximately –6.75. If we set <var>M<sub>V</sub></var> to this value and assume <var>m<sub>V</sub></var> = 25 and plug these into the relation above and solve for distance, we find it is about 22 Mpc.
+      At the end of the evolution, though, we do have a <var>V</var>-band magnitude of approximately -6.75. If we set <var>M<sub>V</sub></var> to this value and assume <var>m<sub>V</sub></var> = 25 and plug these into the relation above and solve for distance, we find it is about 22 Mpc.
     </p>
 
     <p>
       Thus, if this star had been in the same galaxy as iPTF13bvn, it would not have been detected in presupernova imaging because that galaxy is too distant (at about 25 Mpc).
     </p>
 
-    <p>
-      For some models, the magnitude plot may become unreliable. This is becuase MESA's default set of bolometric corrections was not desgined to handle stripped envelope stars. Thus for actual science you should make sure the table covers your entire parameter space or replace with one that does. The default table also only handles Johnson filter bands.
-    </p>
   </div>
 </div>
 <p class='mt-4'>
@@ -1715,7 +1706,7 @@
 
   </span><span class="c1">! Load ZAMS model</span><span class="w">
     </span><span class="n">load_saved_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
-    </span><span class="n">saved_model_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'zams_16Msun.mod'</span><span class="w">
+    </span><span class="n">load_model_filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'zams_16Msun.mod'</span><span class="w">
 
  </span><span class="c1">! rest of the inlist omitted</span></code></pre></figure>
     <p class="card-text">
@@ -1726,7 +1717,7 @@
 
   </span><span class="c1">! Load ZAMS model</span><span class="w">
     </span><span class="n">load_saved_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
-    </span><span class="n">saved_model_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'zams_8Msun.mod'</span><span class="w">
+    </span><span class="n">load_model_filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'zams_8Msun.mod'</span><span class="w">
 
  </span><span class="c1">! rest of the inlist omitted</span></code></pre></figure>
     <p class="card-text">
@@ -1761,7 +1752,7 @@
   </div>
   <div class="card-body collapse" id="sol3_2">
     <p class='card-text'>
-      The final masses of the two stars were 15.4 M<sub>&#8857;</sub> and 8.3 M<sub>&#8857;</sub>. If there is no mass lost, the merger should contain all of this matter, and thus have a mass of <strong class="font-weight-bold">23.697971 M<sub>&#8857;</sub></strong>. (The copious significant digits are unfortunately useful, so hold on to them.)
+      The final masses of the two stars were 15.4 M<sub>&#8857;</sub> and 8.3 M<sub>&#8857;</sub>. If there is no mass lost, the merger should contain all of this matter, and thus have a mass of <strong class="font-weight-bold">23.709607 M<sub>&#8857;</sub></strong>. (The copious significant digits are unfortunately useful, so hold on to them.)
     </p>
   </div>
 </div>
@@ -1808,9 +1799,9 @@
 
   </span><span class="c1">! Load saved model</span><span class="w">
     </span><span class="n">load_saved_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
-    </span><span class="n">saved_model_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'../1_evolve_binary/M1.mod'</span></code></pre></figure>
+    </span><span class="n">load_model_filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'../1_evolve_binary/M1.mod'</span></code></pre></figure>
     <p class="card-text">
-      We also need to update the final mass after relaxation to 23.697971 M<sub>&#8857;</sub>:
+      We also need to update the final mass after relaxation to 23.709607 M<sub>&#8857;</sub>:
     </p>
 <figure class="highlight"><pre><code class="language-fortran" data-lang="fortran"><span class="c1">! inlist_project</span><span class="w">
 </span><span class="p">&amp;</span><span class="n">star_job</span><span class="w">
@@ -1818,24 +1809,24 @@
 
   </span><span class="c1">! Relax the mass</span><span class="w">
     </span><span class="n">relax_initial_mass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
-    </span><span class="n">new_mass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">23.697971</span></code></pre></figure>
+    </span><span class="n">new_mass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">23.709607</span></code></pre></figure>
     <p class="card-text">
       The final mass after running can be confirmed from the terminal output (6th column, first row):
     </p>
     <pre class='my-0 py-0'><code class='my-0 py-0'>__________________________________________________________________________________________________________________________________________________
 
-       step    lg_Tmax     Teff     lg_LH      lg_Lnuc     Mass       H_rich     H_cntr     N_cntr     Y_surf   eta_cntr   zones  retry
-   lg_dt_yr    lg_Tcntr    lg_R     lg_L3a     lg_Lneu     lg_Mdot    He_core    He_cntr    O_cntr     Z_surf   gam_cntr   iters
-     age_yr    lg_Dcntr    lg_L     lg_LZ      lg_Lphoto   lg_Dsurf   C_core     C_cntr     Ne_cntr    Z_cntr   v_div_cs       dt_limit
+      step    lg_Tmax     Teff     lg_LH      lg_Lnuc     Mass       H_rich     H_cntr     N_cntr     Y_surf   eta_cntr   zones  retry
+ lg_dt_yrs    lg_Tcntr    lg_R     lg_L3a     lg_Lneu     lg_Mdot    He_core    He_cntr    O_cntr     Z_surf   gam_cntr   iters  
+   age_yrs    lg_Dcntr    lg_L     lg_LZ      lg_Lphoto   lg_Dsurf   CO_core    C_cntr     Ne_cntr    Z_cntr   v_div_cs       dt_limit
 __________________________________________________________________________________________________________________________________________________
 
-       1055   8.209733   3943.130   4.977102   5.120229  23.700000  18.373522   0.000000   0.003426   0.252000  -3.909521   1524      0
-  -2.476449   8.209733   2.890977   3.731701   3.810187 -99.000000   5.326478   0.993923   0.000079   0.006000   0.031750      5
- 1.3338E+07   2.840863   5.120012   4.500233 -99.000000  -8.671538   0.000000   0.000230   0.001119   0.006077  0.000E+00  max increase</code></pre>
+      1056   8.223644   3931.867   4.990856   5.130967  23.709607  17.934889   0.000000   0.003699   0.252000  -3.858616   1508      0
+-2.6810E+00   8.223644   2.898697   4.165015   3.823976 -99.000000   5.774718   0.993997   0.000039   0.006000   0.031781      8
+1.3454E+07   2.884388   5.130483   4.355223 -99.000000  -8.677259   0.000000   0.000265   0.000776   0.006003  0.000E+00  max increase</code></pre>
   </div>
 </div>
 <p>
-  The entropy inside stars typically increases with radius. Entropy can be resembled with the ability to float – higher entropy material floats easier and therefore ends up on the surface. When assembling the two merging stars and deciding what the composition structure of the merger product should be, sorting it according to the specific entropy of the zones is, therefore, a method that has been used when modeling merger products (e.g., <a href="https://ui.adsabs.harvard.edu/abs/2002ApJ...568..939L/abstract" target=_blank>Lombardi et al. 2002</a>). 
+  The entropy inside stars typically increases with radius. Entropy can be resembled with the ability to float - higher entropy material floats easier and therefore ends up on the surface. When assembling the two merging stars and deciding what the composition structure of the merger product should be, sorting it according to the specific entropy of the zones is, therefore, a method that has been used when modeling merger products (e.g., <a href="https://ui.adsabs.harvard.edu/abs/2002ApJ...568..939L/abstract" target=_blank>Lombardi et al. 2002</a>). 
 </p>
 
 <p class='lead mt-4'>
@@ -1926,7 +1917,7 @@ ________________________________________________________________________________
 
   </span><span class="c1">! Load saved model</span><span class="w">
     </span><span class="n">load_saved_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
-    </span><span class="n">saved_model_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'../2_relax_mass/relaxed_mass.mod'</span></code></pre></figure>
+    </span><span class="n">load_model_filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'../2_relax_mass/relaxed_mass.mod'</span></code></pre></figure>
     <p class="card-text">
       Now note the following lines that tell <code>star</code> to change the composition of the file:
     </p>
@@ -1979,7 +1970,7 @@ ________________________________________________________________________________
 <figure class="highlight"><pre><code class="language-fortran" data-lang="fortran"><span class="c1">! inlist_project</span><span class="w">
   </span><span class="c1">! Load saved model</span><span class="w">
     </span><span class="n">load_saved_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
-    </span><span class="n">saved_model_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'merger_start.mod'</span></code></pre></figure>
+    </span><span class="n">load_model_filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'merger_start.mod'</span></code></pre></figure>
     <p class="card-text">
       (Or we could directly link to the previous directory by pointing to <code>../3_relax_composition/merger_start.mod</code>). The stopping condition is then (in the <code>controls</code> namelist)
     </p>
@@ -2026,7 +2017,7 @@ ________________________________________________________________________________
         <span class="text-info font-weight-bold">What regions of the star are convective?</span> During central helium burning, the helium-burning core is convective as well as the hydrogen-burning shell. The convective layer covering the hydrogen-burning shell extends over &#8776; 8 M<sub>&#8857;</sub> and therefore reaches into the non-burning envelope as well.
       </li>
       <li>
-        <span class="text-info font-weight-bold">What is the effective temperature? What is the radius? What is its surface gravity?</span> The final effective temperature is approximately 24,000 K, the radius is about 23 R<sub>&#8857;</sub>, and the surface gravity is about log <var>g</var> &#8776; 3.
+        <span class="text-info font-weight-bold">What is the effective temperature? What is the radius? What is its surface gravity?</span> The final effective temperature is approximately 24,000 K, the radius is about 27 R<sub>&#8857;</sub>, and the surface gravity is about log <var>g</var> &#8776; 3.
       </li>
       <li>
         <span class="text-info font-weight-bold">Do you think the merger product could be confused with a single main sequence star?</span> Apart from the surface gravity being somewhat low for main sequence stars, the effective temperature and radius match well with the expectations for main sequence stars. The luminosity is also similar. This star <em>could</em> most likely be confused with a single main sequence star.
@@ -2061,7 +2052,7 @@ ________________________________________________________________________________
     <span class="text-primary font-weight-bold">Blue Supergiant (BSG)</span>: > 7,500 K
   </li>
   <li>
-    <span class="text-warning font-weight-bold">Yellow Supergiant (YSG)</span>: 4,800 K – 7,500 K
+    <span class="text-warning font-weight-bold">Yellow Supergiant (YSG)</span>: 4,800 K - 7,500 K
   </li>
   <li>
     <span class="text-danger font-weight-bold">Red Supergiant (RSG)</span>: < 4,800 K
@@ -2105,7 +2096,7 @@ ________________________________________________________________________________
     </p>
   </div>
 </div>
-<h4 class="mt-5" id='part3c'>Blue Supergiants as Merger Products – from Life to Death</h4>
+<h4 class="mt-5" id='part3c'>Blue Supergiants as Merger Products - from Life to Death</h4>
 <p>
   Do all merger products behave like the model you just created? This could mean that regular single stellar population synthesis models under-predict the number of BSGs, since massive single stars are thought to burn helium as RSGs, while your merger product burns helium as a BSG. Merger products have even been suggested as responsible for the blue supergiant progenitors of some supernovae, like SN 1987A (e.g., <a href="https://ui.adsabs.harvard.edu/abs/1990A%26A...227L...9P/abstract" target=_blank>Podsiadlowski et al., 1990</a>, <a href="https://ui.adsabs.harvard.edu/abs/2017MNRAS.469.4649M/abstract">Menon et al., 2017</a>). Let’s explore how common these blue supergiant phases may be and whether they can last to the end stages of stellar life.
 </p>
@@ -2342,7 +2333,7 @@ ________________________________________________________________________________
 <figure class="highlight"><pre><code class="language-fortran" data-lang="fortran"><span class="w">  </span><span class="c1">! inlist_project</span><span class="w">
   </span><span class="c1">! zero out model number</span><span class="w">
     </span><span class="n">set_initial_model_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
-    </span><span class="n">initial_model_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span></code></pre></figure>
+    </span><span class="n">initial_model_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">0</span></code></pre></figure>
     <p class="card-text">
       and in <code>controls</code>:
     </p>
@@ -2362,7 +2353,7 @@ ________________________________________________________________________________
 <figure class="highlight"><pre><code class="language-fortran" data-lang="fortran"><span class="w">  </span><span class="c1">! inlist_project</span><span class="w">
   </span><span class="c1">! Load saved model</span><span class="w">
     </span><span class="n">load_saved_model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
-    </span><span class="n">saved_model_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'rot_prep.mod'</span><span class="w">
+    </span><span class="n">load_model_filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'rot_prep.mod'</span><span class="w">
 
   </span><span class="c1">! save model in preparation of turning on rotation</span><span class="w">
     </span><span class="n">save_model_when_terminate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">.true.</span><span class="w">
